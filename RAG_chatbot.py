@@ -8,15 +8,23 @@ from langchain.embeddings import HuggingFaceEmbeddings
 import tempfile
 import os
 
-# Set page config
-st.set_page_config(page_title="RAG-Powered PDF Chatbot", layout="wide")
+# Set app page config
+st.set_page_config(page_title="RAG-Powered PDF Chatbot", layout="wide", page_icon="📚")
 
-st.title("📄 RAG-Powered Web PDF Chatbot (Ollama + DeepSeek)")
+# Sidebar
+st.sidebar.image("https://img.icons8.com/external-flat-juicy-fish/60/null/external-chatbot-customer-support-flat-flat-juicy-fish.png", width=60)
+st.sidebar.title("📂 PDF Chatbot")
+st.sidebar.write("Upload your PDF and ask questions directly from its content.")
+st.sidebar.markdown("---")
 
-# Upload PDF
-uploaded_file = st.file_uploader("Upload your PDF", type="pdf")
+uploaded_file = st.sidebar.file_uploader("📄 Upload your PDF", type="pdf")
 
-# Store PDF in temp
+# Main title and description
+st.markdown("## 🤖 RAG-Powered Web PDF Chatbot (Ollama + DeepSeek)")
+st.markdown("> Ask contextual questions from any uploaded PDF document using **Retrieval-Augmented Generation** with **LLM** support.")
+st.markdown("---")
+
+# Store PDF temporarily
 if uploaded_file is not None:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
         tmp_file.write(uploaded_file.read())
@@ -32,24 +40,31 @@ if uploaded_file is not None:
     # Embed & store in FAISS
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     vectorstore = FAISS.from_documents(docs, embeddings)
-
     retriever = vectorstore.as_retriever()
 
-    # Load Ollama LLM (DeepSeek)
+    # Load LLM
     llm = Ollama(model="deepseek-coder")
 
-    # Create QA chain
+    # QA Chain
     qa_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
 
-    # User query
-    user_question = st.text_input("Ask a question from the PDF")
+    # Input for question
+    st.markdown("### ❓ Ask a Question from your PDF")
+    user_question = st.text_input("Type your question here:")
 
     if user_question:
-        with st.spinner("Thinking..."):
+        with st.spinner("🔍 Thinking..."):
             response = qa_chain.run(user_question)
             st.success(response)
 
-    # Clean up
+    # Cleanup
     os.remove(tmp_pdf_path)
 else:
-    st.info("👆 Upload a PDF to get started.")
+    st.info("⬅️ Upload a PDF from the sidebar to get started.")
+
+# Footer
+st.markdown("---")
+st.markdown(
+    "<p style='text-align:center; color: gray;'>Built with ❤️ using Streamlit, LangChain & Ollama</p>",
+    unsafe_allow_html=True
+)
