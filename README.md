@@ -1,47 +1,94 @@
-# RAG_chatbot
+# 🤖 RAG Chatbot – PDF-Powered Question Answering App
 
-📊 Data Flow Diagram (Level 1)
-mermaid
-Copy
-Edit
+A Retrieval-Augmented Generation (RAG) chatbot built with **Streamlit**, **FAISS**, **SentenceTransformers**, and a **local LLM (Ollama)**. It allows users to upload a PDF and ask questions from its content – no OpenAI key needed!
+
+---
+
+## 🧠 How It Works (Simplified Flow)
+
+📄 **User Uploads PDF**  
+🔍 **Text is extracted using PyPDF**  
+🧩 **Text is chunked**  
+🧠 **Chunks embedded via SentenceTransformer (`all-MiniLM-L6-v2`)**  
+🗃️ **FAISS stores chunk vectors for similarity search**  
+💬 **User query is embedded and matched**  
+🧠 **Relevant chunks + query sent to Ollama (DeepSeek LLM)**  
+🧾 **Answer generated and shown via Streamlit**
+
+---
+
+## 📸 Architecture Overview
+
+```mermaid
 graph TD
-    A[User Uploads PDF] --> B[PDF Text Extraction (PyPDF)]
-    B --> C[Text Chunking]
-    C --> D[Embeddings Generation (SentenceTransformer)]
-    D --> E[Store in Vector DB (FAISS)]
-    F[User Query] --> G[Retriever]
-    G --> E
-    E --> H[Relevant Chunks]
-    H --> I[LLM (Ollama - DeepSeek)]
-    I --> J[Generated Answer]
-    J --> K[Streamlit UI]
+    A[📤 User Uploads PDF] --> B[🔍 Extract Text (PyPDF)]
+    B --> C[🧩 Chunk Text]
+    C --> D[🧠 Generate Embeddings (SentenceTransformer)]
+    D --> E[📦 Store Vectors in FAISS]
+    E --> F[💬 User Query]
+    F --> G[🔍 Match Relevant Chunks (FAISS)]
+    G --> H[🤖 Answer using Ollama LLM (DeepSeek)]
+    H --> I[🖥️ Streamlit Display]
 
-A Retrieval-Augmented Generation (RAG) architecture to build a chatbot that can answer user questions based on uploaded PDF content without needing OpenAI API keys. Here's a step-by-step explanation:
+🚀 Features
+✅ Upload PDFs and extract text
 
-PDF Upload & Extraction
+✅ Chunk content dynamically
 
-The user uploads a PDF via the Streamlit UI.
+✅ Embed using pretrained SentenceTransformer
 
-The text is extracted using PyPDF.
+✅ Store and retrieve chunks via FAISS
 
-Text Chunking & Embedding
+✅ Generate accurate answers using local LLM
 
-The extracted text is split into manageable chunks.
+✅ Simple Streamlit UI (fast + local)
 
-Each chunk is converted into a vector (embedding) using a SentenceTransformer model like all-MiniLM-L6-v2.
+🛠️ Tech Stack
+| Tool                   | Role                 |
+| ---------------------- | -------------------- |
+| `Streamlit`            | UI & interactions    |
+| `PyPDF`                | PDF text extraction  |
+| `SentenceTransformers` | Vector embeddings    |
+| `FAISS`                | Similarity search    |
+| `Ollama` + `DeepSeek`  | Local language model |
+| `Python-dotenv`        | Env config           |
 
-Vector Database (FAISS)
+📦 Installation
 
-All vectorized chunks are stored in a FAISS vector store for fast similarity search.
+git clone https://github.com/Humaira3366/RAG_chatbot.git
+cd RAG_chatbot
+pip install -r requirements.txt
 
-User Query Processing
+Ensure you have Ollama installed and the deepseek-coder model available:
+ollama run deepseek-coder
 
-When a user enters a query, it is also embedded and matched against the FAISS store to retrieve the most relevant chunks.
+▶️ Run the App
+streamlit run app.py
+📝 Usage Example
+Upload any PDF with readable text.
 
-Answer Generation (RAG)
+Ask a question like:
+💬 "What is the objective of this paper?"
 
-The retrieved chunks and the user’s query are passed to a local LLM (DeepSeek model via Ollama) for answer generation.
+Wait for the generated answer from the LLM.
 
-Response Display
+See results below the question box.
 
-The generated answer is displayed back to the user on the Streamlit app interface.
+📌 Coming Soon
+🗃️ Chat history memory
+
+🧾 PDF summary generator
+
+🌐 Multi-PDF RAG support
+
+🙋‍♀️ Author
+Name: Humaira Fathima N
+LinkedIn: www.linkedin.com/in/humairafathima-n-778415295
+Email: humaira2004super@gmail.com
+
+⭐ Star this repo if you found it useful!
+
+---
+
+Would you like a matching `requirements.txt` or a custom badge (e.g., PDF-powered 🧠 bot)?
+
