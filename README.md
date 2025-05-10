@@ -21,14 +21,14 @@ A Retrieval-Augmented Generation (RAG) chatbot built with **Streamlit**, **FAISS
 
 ```mermaid
 graph TD
-    A[📤 User Uploads PDF] --> B[🔍 Extract Text (PyPDF)]
-    B --> C[🧩 Chunk Text]
-    C --> D[🧠 Generate Embeddings (SentenceTransformer)]
-    D --> E[📦 Store Vectors in FAISS]
-    E --> F[💬 User Query]
-    F --> G[🔍 Match Relevant Chunks (FAISS)]
-    G --> H[🤖 Answer using Ollama LLM (DeepSeek)]
-    H --> I[🖥️ Streamlit Display]
+ A[📤 User Uploads PDF] --> B[🔍 Extract Text (PyPDF)]
+ B --> C[🧩 Chunk Text]
+ C --> D[🧠 Generate Embeddings (SentenceTransformer)]
+ D --> E[📦 Store Vectors in FAISS]
+ E --> F[💬 User Query]
+ F --> G[🔍 Match Relevant Chunks (FAISS)]
+ G --> H[🤖 Answer using Ollama LLM (DeepSeek)]
+ H --> I[🖥️ Streamlit Display]
 
 🚀 Features
 ✅ Upload PDFs and extract text
