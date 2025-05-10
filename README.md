@@ -24,7 +24,9 @@ User Query → Embed → Retrieve Chunks
 ↓
 Local LLM → Generate Answer → Streamlit UI
 
+
 🚀 Features
+
 ✅ Upload PDFs and extract text
 
 ✅ Chunk content dynamically
