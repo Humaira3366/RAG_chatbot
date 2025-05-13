@@ -12,12 +12,45 @@ import os
 st.set_page_config(page_title="RAG-Powered PDF Chatbot", layout="wide", page_icon="📚")
 
 # Sidebar
-st.sidebar.image("https://img.icons8.com/external-flat-juicy-fish/60/null/external-chatbot-customer-support-flat-flat-juicy-fish.png", width=60)
-st.sidebar.title("📂 PDF Chatbot")
-st.sidebar.write("Upload your PDF and ask questions directly from its content.")
-st.sidebar.markdown("---")
 
-uploaded_file = st.sidebar.file_uploader("📄 Upload your PDF", type="pdf")
+# Sidebar: File upload remains the same
+st.sidebar.title("🤖 I’m your PDF Buddy! Ask me anything from your file!")
+st.sidebar.title("📂 PDF Chatbot")
+uploaded_file = st.sidebar.file_uploader("Upload your PDF", type=["pdf"])
+st.sidebar.markdown("Limit: 200MB per file • Format: PDF")
+
+# Sidebar Toggle Section
+option = st.sidebar.radio("🔍 View Sidebar Info:", ["PDF Summary", "Tips", "Recent Questions"])
+
+if option == "PDF Summary":
+    st.sidebar.markdown("### 📄 Summary")
+    st.sidebar.markdown("""
+    - **Pages**: 12  
+    - **Main Topic**: Big Transformer  
+    - **Focus**: AI-based Machine Translation  
+    - **Highlights**: Label Smoothing, BLEU Scores  
+    """)
+
+elif option == "Tips":
+    st.sidebar.markdown("### 💡 How to Use")
+    st.sidebar.markdown("""
+    1. Upload a PDF file  
+    2. Ask specific questions like:  
+       - "What is the paper about?"  
+       - "Explain evaluation results"  
+    3. Get answers with citation support  
+    """)
+
+elif option == "Recent Questions":
+    st.sidebar.markdown("### 📝 Recent Questions")
+    # You can store these in session_state when users ask a question
+    recent_questions = st.session_state.get("recent_questions", [
+        "What is the core of this PDF?",
+        "List evaluation results",
+        "Explain label smoothing"
+    ])
+    for q in recent_questions:
+        st.sidebar.markdown(f"- {q}")
 
 # Main title and description
 st.markdown("## 🤖 RAG-Powered Web PDF Chatbot (Ollama + DeepSeek)")
@@ -68,3 +101,4 @@ st.markdown(
     "<p style='text-align:center; color: gray;'>Built with ❤️ using Streamlit, LangChain & Ollama</p>",
     unsafe_allow_html=True
 )
+
