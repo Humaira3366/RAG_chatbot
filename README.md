@@ -2,6 +2,9 @@
 
 A Retrieval-Augmented Generation (RAG) chatbot built with **Streamlit**, **FAISS**, **SentenceTransformers**, and a **local LLM (Ollama)**. It allows users to upload a PDF and ask questions from its content – no OpenAI key needed!
 
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/8d3dc36e-b3fb-4f15-8237-70342fe5d35e" />
+
+
 ---
 
 ## 🧠 How It Works (Simplified Flow)
